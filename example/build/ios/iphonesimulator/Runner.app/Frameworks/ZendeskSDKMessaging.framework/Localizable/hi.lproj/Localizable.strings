@@ -1,5 +1,6 @@
 "zma_accessibility_loading_label" = "लोड हो रहा है";
 "zma_accessibility_message_author_replied" = "%@ ने जवाब दिया";
+"zma_accessibility_postback_error_message" = "त्रुटि, %@";
 "zma_action_label_cancel" = "रद्द करें";
 "zma_actions_attachments_label" = "एक अटैचमेंट भेजें";
 "zma_alert_message_label_camera" = "कैमरा";
@@ -23,7 +24,6 @@
 "zma_conversation_list_item_description_message" = "एक संदेश भेजा";
 "zma_conversation_list_item_description_no_messages" = "(कोई संदेश नहीं)";
 "zma_conversation_list_item_description_prefix_you" = "आप: %@";
-"zma_conversation_list_item_description_sender_you" = "आप: ";
 "zma_conversation_list_item_timestamp_just_now" = "अभी तुरंत";
 "zma_conversation_list_item_unread_indicator_maximum" = "99+";
 "zma_conversation_message_label_cant_be_displayed" = "संदेश दिखाया नहीं जा सकता";
@@ -37,7 +37,9 @@
 "zma_conversation_message_menu_copy_button_label" = "कॉपी करें";
 "zma_conversation_message_menu_delete_button_label" = "हटाएँ";
 "zma_conversation_messages_failed_to_load" = "संदेशों को लोड करने में विफल";
+"zma_conversation_new_messages_banner" = "%@ नये संदेश";
 "zma_conversation_new_messages_divider" = "नया";
+"zma_conversation_see_latest" = "नवीनतम देखें";
 "zma_exceeds_max_file_size" = "फ़ाइल का आकार ज़्यादा से ज़्यादा (%@ MB) होना चाहिए और वह पार हो चुका है";
 "zma_form_field_counter_label" = "%@ में से %@";
 "zma_form_field_invalid_email_error" = "मान्य ईमेल पता दर्ज करें";
@@ -55,3 +57,4 @@
 "zma_new_conversation_error_alert_dismiss_button" = "ठीक है";
 "zma_new_conversation_error_alert_message" = "बाद में दोबारा कोशिश करें।";
 "zma_new_conversation_error_alert_title" = "बातचीत नहीं बना सका";
+"zma_postback_error_banner_message" = "%@ पूरा नहीं किया जा सका। बाद में दोबारा कोशिश करें।";

@@ -346,20 +346,23 @@ SWIFT_CLASS_NAMED("Author")
 ///   <li>
 ///     Matches <code>User.id</code> if <code>type</code> is <code>AuthorType.user</code>.
 ///   </li>
+///   <li>
+///     Matches the <code>id</code> of the account that owns the app If <code>type</code> is <code>AuthorType.business</code>. This means that messages
+///     sent by Answer Bot and agents will have the same <code>id</code>.
+///   </li>
 /// </ul>
-@property (nonatomic, readonly, copy) NSString * _Nonnull userId;
+@property (nonatomic, readonly, copy) NSString * _Nonnull id;
 /// The <code>AuthorType</code> of the <code>Author</code>.
 @property (nonatomic, readonly) enum ZDKAuthorType type;
 /// The name to be displayed for the <code>Author</code>.
 @property (nonatomic, readonly, copy) NSString * _Nullable displayName;
 /// The url of the avatar ot be displayed for the <code>Author</code>.
 @property (nonatomic, copy) NSString * _Nullable avatarURL;
-- (nonnull instancetype)initWithUserId:(NSString * _Nonnull)userId type:(enum ZDKAuthorType)type displayName:(NSString * _Nullable)displayName avatarURL:(NSString * _Nullable)avatarURL OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithId:(NSString * _Nonnull)id type:(enum ZDKAuthorType)type displayName:(NSString * _Nullable)displayName avatarURL:(NSString * _Nullable)avatarURL OBJC_DESIGNATED_INITIALIZER;
 /// Returns a Boolean value that indicates whether the receiver and a given object are equal.
 /// \param object the object to compare against
 ///
 - (BOOL)isEqual:(id _Nullable)object SWIFT_WARN_UNUSED_RESULT;
-@property (nonatomic, readonly) NSUInteger hash;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -456,11 +459,7 @@ SWIFT_CLASS_NAMED("Config")
 @property (nonatomic, copy) NSString * _Nonnull appId;
 /// The <code>baseURL</code> related to the Sunshine Conversations instance.
 @property (nonatomic, copy) NSString * _Nonnull baseURL;
-/// A boolean indicating if multi-convo is enabled
-@property (nonatomic) BOOL multiConvoEnabled;
-/// A boolean indicating if the end user is permitted to create more conversations
-@property (nonatomic) BOOL canUserCreateMoreConversations;
-- (nonnull instancetype)initWithAppId:(NSString * _Nonnull)appId baseURL:(NSString * _Nonnull)baseURL multiConvoEnabled:(BOOL)multiConvoEnabled canUserCreateMoreConversations:(BOOL)canUserCreateMoreConversations OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithAppId:(NSString * _Nonnull)appId baseURL:(NSString * _Nonnull)baseURL OBJC_DESIGNATED_INITIALIZER;
 /// Returns a Boolean value that indicates whether the receiver and a given object are equal.
 /// \param object the object to compare against.
 ///
@@ -532,6 +531,16 @@ SWIFT_CLASS_NAMED("Conversation")
 ///   </li>
 /// </ul>
 @property (nonatomic, readonly, copy) NSDate * _Nullable lastUpdatedAt;
+/// The metadata of this conversation.
+/// <ul>
+///   <li>
+///     Can contain the custom fields and tags associated with the conversation.
+///   </li>
+///   <li>
+///     Strings, numbers and booleans are the only supported value types.
+///   </li>
+/// </ul>
+@property (nonatomic, readonly, copy) NSDictionary<NSString *, NSObject *> * _Nullable metadata;
 /// An array of all the <code>Participant</code>s in the <code>Conversation</code>.
 @property (nonatomic, readonly, copy) NSArray<ZDKParticipant *> * _Nonnull participants;
 /// An array of all the <code>Message</code>s in the <code>Conversation</code>.
@@ -544,7 +553,10 @@ SWIFT_CLASS_NAMED("Conversation")
 @property (nonatomic, readonly, strong) ZDKActivity * _Nullable activity;
 /// The status of the <code>Conversation</code>
 @property (nonatomic, readonly) enum ZDKConversationStatus status;
+/// This property exists for backwards-compatability only, and will be removed in an upcoming ConversationKit version.
+/// Use the other init method that includes metadata.
 - (nonnull instancetype)initWithId:(NSString * _Nonnull)id type:(enum ZDKConversationType)type isDefault:(BOOL)isDefault displayName:(NSString * _Nullable)displayName displayDescription:(NSString * _Nullable)displayDescription iconURL:(NSString * _Nullable)iconURL business:(NSArray<NSString *> * _Nonnull)business businessLastRead:(NSDate * _Nullable)businessLastRead lastUpdatedAt:(NSDate * _Nullable)lastUpdatedAt participants:(NSArray<ZDKParticipant *> * _Nonnull)participants messages:(NSArray<ZDKMessage *> * _Nonnull)messages hasPrevious:(BOOL)hasPrevious myself:(ZDKParticipant * _Nullable)myself activity:(ZDKActivity * _Nullable)activity status:(enum ZDKConversationStatus)status OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithId:(NSString * _Nonnull)id type:(enum ZDKConversationType)type isDefault:(BOOL)isDefault displayName:(NSString * _Nullable)displayName displayDescription:(NSString * _Nullable)displayDescription iconURL:(NSString * _Nullable)iconURL business:(NSArray<NSString *> * _Nonnull)business businessLastRead:(NSDate * _Nullable)businessLastRead lastUpdatedAt:(NSDate * _Nullable)lastUpdatedAt metadata:(NSDictionary<NSString *, NSObject *> * _Nullable)metadata participants:(NSArray<ZDKParticipant *> * _Nonnull)participants messages:(NSArray<ZDKMessage *> * _Nonnull)messages hasPrevious:(BOOL)hasPrevious myself:(ZDKParticipant * _Nullable)myself activity:(ZDKActivity * _Nullable)activity status:(enum ZDKConversationStatus)status OBJC_DESIGNATED_INITIALIZER;
 /// Returns a Boolean value that indicates whether the receiver and a given object are equal.
 /// \param object the object to compare against
 ///
@@ -553,6 +565,7 @@ SWIFT_CLASS_NAMED("Conversation")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
 
 
 
@@ -566,6 +579,7 @@ SWIFT_PROTOCOL_NAMED("ConversationKitBuilderObjC")
 @end
 
 @class ZDKConversationKitSettings;
+@class ZDKFeatureFlagManager;
 @class ZDKUser;
 enum ZDKProactiveMessageStatus : NSInteger;
 @class ZDKProactiveMessage;
@@ -574,17 +588,13 @@ enum ZDKVisitType : NSInteger;
 SWIFT_PROTOCOL("_TtP25ZendeskSDKConversationKit21ConversationKitShared_")
 @protocol ConversationKitShared
 /// Current <code>UUID</code> to identify the host app install
-/// note:
-/// This will be only available after successful <code>setup(with:result)</code>.
-@property (nonatomic, readonly, copy) NSString * _Nullable clientId;
+@property (nonatomic, readonly, copy) NSString * _Nonnull clientId;
 /// Current <code>Config</code> of <code>ConversationKit</code>.
-/// note:
-/// This will be only available after successful <code>setup(with:result)</code>.
-@property (nonatomic, readonly, strong) ZDKConfig * _Nullable config;
+@property (nonatomic, readonly, strong) ZDKConfig * _Nonnull config;
 /// Current <code>ConversationKitSettings</code>.
-/// note:
-/// This will be only available after successful <code>setup(with:result)</code>.
-@property (nonatomic, readonly, strong) ZDKConversationKitSettings * _Nullable settings;
+@property (nonatomic, readonly, strong) ZDKConversationKitSettings * _Nonnull settings;
+/// Current <code>FeatureFlagManager</code>.
+@property (nonatomic, readonly, strong) ZDKFeatureFlagManager * _Nonnull featureFlagManager;
 /// Current <code>User</code> if it exists.
 @property (nonatomic, readonly, strong) ZDKUser * _Nullable currentUser;
 /// Remove a type of <code>AnyObject</code> from listening to <code>ConversationKitEvent</code> updates.
@@ -593,12 +603,6 @@ SWIFT_PROTOCOL("_TtP25ZendeskSDKConversationKit21ConversationKitShared_")
 /// \param observer Object to remove from observing events.
 ///
 - (void)removeEventObserver:(id _Nonnull)observer;
-/// Setup ConversationKit with the given <code>ConversationKitSettings</code>, and <code>Config</code>
-/// \param settings <code>ConversationKitSettings</code> that includes the necessary <code>integrationId</code>.
-///
-/// \param config <code>Config</code> for the app integration
-///
-- (void)setupWith:(ZDKConversationKitSettings * _Nonnull)settings config:(ZDKConfig * _Nonnull)config;
 /// Call to pause the realtime connection that <code>ConversationKit</code> has with the backend.
 /// note:
 /// After this is called, no updates will be received from the server.
@@ -633,6 +637,22 @@ SWIFT_PROTOCOL("_TtP25ZendeskSDKConversationKit21ConversationKitShared_")
 /// \param proactiveMessageIds The ids of the proactive message concerned
 ///
 - (void)clearProactiveMessagesWithProactiveMessageIds:(NSArray<NSString *> * _Nonnull)proactiveMessageIds;
+/// Provide a dictionary of custom fields.
+/// note:
+/// Strings, numbers and booleans are the only supported value types that can be passed.
+/// \param fields The dictionary of custom fields to be provided.
+///
+- (void)setConversationFields:(NSDictionary<NSString *, NSObject *> * _Nonnull)fields;
+/// Provide an array of custom fields.
+/// note:
+/// Strings, numbers and booleans are the only supported value types that can be passed.
+/// \param tags The dictionary of custom tags to be provided.
+///
+- (void)setConversationTags:(NSArray<NSString *> * _Nonnull)tags;
+/// Clears all fields from storage.
+- (void)clearConversationFields;
+/// Clears all tags from storage.
+- (void)clearConversationTags;
 @end
 
 enum ZDKConversationKitEvent : NSInteger;
@@ -658,15 +678,6 @@ SWIFT_PROTOCOL_NAMED("ConversationKitObjC")
 /// \param closure Closure to receive events on.
 ///
 - (void)addEventObserver:(id _Nonnull)observer closure:(void (^ _Nullable)(enum ZDKConversationKitEvent, id _Nullable))closure;
-/// Call to initially setup the SDK with the given <code>ConversationKitSettings</code>
-/// note:
-/// If the SDK is already setup this call will result in an <code>Error</code>.
-/// If this call fails, it is necessary to retry until it succeeds to be able to use the SDK.
-/// \param settings <code>ConversationKitSettings</code> that includes the necessary <code>integrationId</code>.
-///
-/// \param completion <code>Config</code> for the app integration if successful, <code>Error</code> if not.
-///
-- (void)setupWith:(ZDKConversationKitSettings * _Nonnull)settings completion:(void (^ _Nullable)(ZDKConfig * _Nullable, NSError * _Nullable))completion;
 /// Call to create an Anonymous <code>ZDKUser</code>. This call will trigger a network.
 /// note:
 /// If the <code>givenName</code> and <code>surname</code> are empty, an anonymous user with a random name will be created.
@@ -826,7 +837,7 @@ SWIFT_CLASS_NAMED("DefaultConversationKitBuilder")
 
 
 @interface ZDKDefaultConversationKitBuilder (SWIFT_EXTENSION(ZendeskSDKConversationKit))
-- (id <ZDKConversationKit> _Nonnull)buildWithCallbackQueue:(dispatch_queue_t _Nonnull)callbackQueue SWIFT_WARN_UNUSED_RESULT;
+- (id <ZDKConversationKit> _Nonnull)buildWith:(ZDKConversationKitSettings * _Nonnull)settings config:(ZDKConfig * _Nonnull)config featureFlagManager:(ZDKFeatureFlagManager * _Nonnull)featureFlagManager callbackQueue:(dispatch_queue_t _Nonnull)callbackQueue SWIFT_WARN_UNUSED_RESULT;
 @end
 
 enum ZDKFieldType : NSInteger;
@@ -860,6 +871,7 @@ SWIFT_PROTOCOL_NAMED("Field")
 @end
 
 
+/// Form Field used for email input
 SWIFT_CLASS_NAMED("EmailFormField")
 @interface ZDKEmailFormField : NSObject <ZDKField>
 /// The field type.
@@ -923,6 +935,7 @@ SWIFT_CLASS_NAMED("FileMessageContent")
 @end
 
 
+/// <code>Form</code> related <code>MessageContent</code>. Used to display an unsubmitted form.
 SWIFT_CLASS_NAMED("FormMessageContent")
 @interface ZDKFormMessageContent : NSObject <ZDKMessageContent>
 /// The id of the <code>Message</code>
@@ -946,6 +959,7 @@ SWIFT_CLASS_NAMED("FormMessageContent")
 @end
 
 
+/// <code>FormResponse</code> related <code>MessageContent</code>. Used to display a submitted form.
 SWIFT_CLASS_NAMED("FormResponseMessageContent")
 @interface ZDKFormResponseMessageContent : NSObject <ZDKMessageContent>
 /// The type  of the <code>Message</code>.
@@ -1137,9 +1151,9 @@ typedef SWIFT_ENUM_NAMED(NSInteger, ZDKMessageStatus, "MessageStatus", open) {
   ZDKMessageStatusSent = 1,
 /// An attempt was made to send the <code>Message</code> to the server but it failed.
   ZDKMessageStatusFailed = 2,
-/// An attempt was made to send the <code>Message</code> to the server but it failed becasue the file size exceeds the max file size.
+/// An attempt was made to send the <code>Message</code> to the server but it failed because the file size exceeds the max file size.
   ZDKMessageStatusExceedsMaxFileSize = 3,
-/// An attempt was made to send the <code>Message</code> to the server but it failed becasue it is an unsupported file type.
+/// An attempt was made to send the <code>Message</code> to the server but it failed because it is an unsupported file type.
   ZDKMessageStatusFailedAttachmentNotSupported = 4,
 };
 
@@ -1166,6 +1180,7 @@ typedef SWIFT_ENUM_NAMED(NSInteger, ZDKMessageType, "MessageType", open) {
 };
 
 
+/// <code>Option</code> model used for<code>Form</code> <code>Message</code> types, when the input <code>type</code> is <code>select</code>.
 SWIFT_CLASS_NAMED("Option")
 @interface ZDKOption : NSObject
 - (BOOL)isEqual:(id _Nullable)object SWIFT_WARN_UNUSED_RESULT;
@@ -1291,6 +1306,7 @@ SWIFT_CLASS_NAMED("ReplyAction")
 @end
 
 
+/// Form Field that takes in generic user input
 SWIFT_CLASS_NAMED("SelectFormField")
 @interface ZDKSelectFormField : NSObject <ZDKField>
 /// The field type.
@@ -1345,6 +1361,7 @@ SWIFT_CLASS_NAMED("ShareAction")
 @end
 
 
+/// Form Field that takes in generic user input
 SWIFT_CLASS_NAMED("TextFormField")
 @interface ZDKTextFormField : NSObject <ZDKField>
 /// The field type.
@@ -1374,11 +1391,14 @@ SWIFT_CLASS_NAMED("TextFormField")
 
 
 @interface ZDKTextFormField (SWIFT_EXTENSION(ZendeskSDKConversationKit))
+/// The minimum allowed length for the response for a field of type text.
 @property (nonatomic, readonly) NSInteger minSizeObjc;
+/// The maximum allowed length for the response for a field of type text.
 @property (nonatomic, readonly) NSInteger maxSizeObjc;
 @end
 
 
+/// Text related <code>MessageContent</code>
 SWIFT_CLASS_NAMED("TextMessageContent")
 @interface ZDKTextMessageContent : NSObject <ZDKMessageContent>
 /// The type of the <code>Message</code>.
@@ -1400,7 +1420,6 @@ SWIFT_CLASS_NAMED("TextMessageContent")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
-
 
 
 SWIFT_CLASS_NAMED("UnsupportedMessageContent")
@@ -1489,6 +1508,18 @@ SWIFT_CLASS_NAMED("WebViewAction")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+/// Wrapper object for Obj-C to return the associated types of the <code>newActivity</code> and <code>activityReceived</code> events.
+SWIFT_CLASS("_TtC25ZendeskSDKConversationKit16ZDKActivityEvent")
+@interface ZDKActivityEvent : NSObject
+/// The received/updated <code>Activity</code>.
+@property (nonatomic, readonly, strong) ZDKActivity * _Nonnull activity;
+/// The identifier of the <code>Conversation</code> that the messages belong to.
+@property (nonatomic, readonly, copy) NSString * _Nonnull conversationId;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 /// List of events that covers all events that could come from <code>ConversationKit</code>.
 typedef SWIFT_ENUM(NSInteger, ZDKConversationKitEvent, open) {
 /// A connection status change event can come from Reachability or Realtime connection.
@@ -1501,20 +1532,20 @@ typedef SWIFT_ENUM(NSInteger, ZDKConversationKitEvent, open) {
   ZDKConversationKitEventConversationUpdated = 3,
 /// New <code>Message</code> received for <code>Conversation</code> with identifier.
   ZDKConversationKitEventNewMessage = 4,
+/// New <code>Activity</code> received for <code>Conversation</code> with identifier.
+  ZDKConversationKitEventNewActivity = 5,
 /// Existing <code>Message</code> updated for <code>Conversation</code> with identifier.
-  ZDKConversationKitEventMessageUpdated = 5,
+  ZDKConversationKitEventMessageUpdated = 6,
 /// The push token ‘String’ was stored.
-  ZDKConversationKitEventPushTokenPrepared = 6,
+  ZDKConversationKitEventPushTokenPrepared = 7,
 /// The result of the call to update the push token <code>String</code> with possible <code>Error</code>.
-  ZDKConversationKitEventPushTokenUpdateResult = 7,
+  ZDKConversationKitEventPushTokenUpdateResult = 8,
 /// The result of the login call with possible <code>Error</code>.
-  ZDKConversationKitEventLoginResult = 8,
+  ZDKConversationKitEventLoginResult = 9,
 /// The result of the logout call with possible <code>Error</code>.
-  ZDKConversationKitEventLogoutResult = 9,
+  ZDKConversationKitEventLogoutResult = 10,
 /// The <code>User</code> has been retrieved from storage.
-  ZDKConversationKitEventPersistedUserRetrieved = 10,
-/// Conversation read activity received from server for <code>conversationId</code>.
-  ZDKConversationKitEventConversationReadReceived = 11,
+  ZDKConversationKitEventPersistedUserRetrieved = 11,
 /// Current user has gained access to <code>Conversation</code>.
   ZDKConversationKitEventConversationAdded = 12,
 /// Current user has lost access to <code>Conversation</code> with identifier.
@@ -1925,20 +1956,23 @@ SWIFT_CLASS_NAMED("Author")
 ///   <li>
 ///     Matches <code>User.id</code> if <code>type</code> is <code>AuthorType.user</code>.
 ///   </li>
+///   <li>
+///     Matches the <code>id</code> of the account that owns the app If <code>type</code> is <code>AuthorType.business</code>. This means that messages
+///     sent by Answer Bot and agents will have the same <code>id</code>.
+///   </li>
 /// </ul>
-@property (nonatomic, readonly, copy) NSString * _Nonnull userId;
+@property (nonatomic, readonly, copy) NSString * _Nonnull id;
 /// The <code>AuthorType</code> of the <code>Author</code>.
 @property (nonatomic, readonly) enum ZDKAuthorType type;
 /// The name to be displayed for the <code>Author</code>.
 @property (nonatomic, readonly, copy) NSString * _Nullable displayName;
 /// The url of the avatar ot be displayed for the <code>Author</code>.
 @property (nonatomic, copy) NSString * _Nullable avatarURL;
-- (nonnull instancetype)initWithUserId:(NSString * _Nonnull)userId type:(enum ZDKAuthorType)type displayName:(NSString * _Nullable)displayName avatarURL:(NSString * _Nullable)avatarURL OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithId:(NSString * _Nonnull)id type:(enum ZDKAuthorType)type displayName:(NSString * _Nullable)displayName avatarURL:(NSString * _Nullable)avatarURL OBJC_DESIGNATED_INITIALIZER;
 /// Returns a Boolean value that indicates whether the receiver and a given object are equal.
 /// \param object the object to compare against
 ///
 - (BOOL)isEqual:(id _Nullable)object SWIFT_WARN_UNUSED_RESULT;
-@property (nonatomic, readonly) NSUInteger hash;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -2035,11 +2069,7 @@ SWIFT_CLASS_NAMED("Config")
 @property (nonatomic, copy) NSString * _Nonnull appId;
 /// The <code>baseURL</code> related to the Sunshine Conversations instance.
 @property (nonatomic, copy) NSString * _Nonnull baseURL;
-/// A boolean indicating if multi-convo is enabled
-@property (nonatomic) BOOL multiConvoEnabled;
-/// A boolean indicating if the end user is permitted to create more conversations
-@property (nonatomic) BOOL canUserCreateMoreConversations;
-- (nonnull instancetype)initWithAppId:(NSString * _Nonnull)appId baseURL:(NSString * _Nonnull)baseURL multiConvoEnabled:(BOOL)multiConvoEnabled canUserCreateMoreConversations:(BOOL)canUserCreateMoreConversations OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithAppId:(NSString * _Nonnull)appId baseURL:(NSString * _Nonnull)baseURL OBJC_DESIGNATED_INITIALIZER;
 /// Returns a Boolean value that indicates whether the receiver and a given object are equal.
 /// \param object the object to compare against.
 ///
@@ -2111,6 +2141,16 @@ SWIFT_CLASS_NAMED("Conversation")
 ///   </li>
 /// </ul>
 @property (nonatomic, readonly, copy) NSDate * _Nullable lastUpdatedAt;
+/// The metadata of this conversation.
+/// <ul>
+///   <li>
+///     Can contain the custom fields and tags associated with the conversation.
+///   </li>
+///   <li>
+///     Strings, numbers and booleans are the only supported value types.
+///   </li>
+/// </ul>
+@property (nonatomic, readonly, copy) NSDictionary<NSString *, NSObject *> * _Nullable metadata;
 /// An array of all the <code>Participant</code>s in the <code>Conversation</code>.
 @property (nonatomic, readonly, copy) NSArray<ZDKParticipant *> * _Nonnull participants;
 /// An array of all the <code>Message</code>s in the <code>Conversation</code>.
@@ -2123,7 +2163,10 @@ SWIFT_CLASS_NAMED("Conversation")
 @property (nonatomic, readonly, strong) ZDKActivity * _Nullable activity;
 /// The status of the <code>Conversation</code>
 @property (nonatomic, readonly) enum ZDKConversationStatus status;
+/// This property exists for backwards-compatability only, and will be removed in an upcoming ConversationKit version.
+/// Use the other init method that includes metadata.
 - (nonnull instancetype)initWithId:(NSString * _Nonnull)id type:(enum ZDKConversationType)type isDefault:(BOOL)isDefault displayName:(NSString * _Nullable)displayName displayDescription:(NSString * _Nullable)displayDescription iconURL:(NSString * _Nullable)iconURL business:(NSArray<NSString *> * _Nonnull)business businessLastRead:(NSDate * _Nullable)businessLastRead lastUpdatedAt:(NSDate * _Nullable)lastUpdatedAt participants:(NSArray<ZDKParticipant *> * _Nonnull)participants messages:(NSArray<ZDKMessage *> * _Nonnull)messages hasPrevious:(BOOL)hasPrevious myself:(ZDKParticipant * _Nullable)myself activity:(ZDKActivity * _Nullable)activity status:(enum ZDKConversationStatus)status OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithId:(NSString * _Nonnull)id type:(enum ZDKConversationType)type isDefault:(BOOL)isDefault displayName:(NSString * _Nullable)displayName displayDescription:(NSString * _Nullable)displayDescription iconURL:(NSString * _Nullable)iconURL business:(NSArray<NSString *> * _Nonnull)business businessLastRead:(NSDate * _Nullable)businessLastRead lastUpdatedAt:(NSDate * _Nullable)lastUpdatedAt metadata:(NSDictionary<NSString *, NSObject *> * _Nullable)metadata participants:(NSArray<ZDKParticipant *> * _Nonnull)participants messages:(NSArray<ZDKMessage *> * _Nonnull)messages hasPrevious:(BOOL)hasPrevious myself:(ZDKParticipant * _Nullable)myself activity:(ZDKActivity * _Nullable)activity status:(enum ZDKConversationStatus)status OBJC_DESIGNATED_INITIALIZER;
 /// Returns a Boolean value that indicates whether the receiver and a given object are equal.
 /// \param object the object to compare against
 ///
@@ -2132,6 +2175,7 @@ SWIFT_CLASS_NAMED("Conversation")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
 
 
 
@@ -2145,6 +2189,7 @@ SWIFT_PROTOCOL_NAMED("ConversationKitBuilderObjC")
 @end
 
 @class ZDKConversationKitSettings;
+@class ZDKFeatureFlagManager;
 @class ZDKUser;
 enum ZDKProactiveMessageStatus : NSInteger;
 @class ZDKProactiveMessage;
@@ -2153,17 +2198,13 @@ enum ZDKVisitType : NSInteger;
 SWIFT_PROTOCOL("_TtP25ZendeskSDKConversationKit21ConversationKitShared_")
 @protocol ConversationKitShared
 /// Current <code>UUID</code> to identify the host app install
-/// note:
-/// This will be only available after successful <code>setup(with:result)</code>.
-@property (nonatomic, readonly, copy) NSString * _Nullable clientId;
+@property (nonatomic, readonly, copy) NSString * _Nonnull clientId;
 /// Current <code>Config</code> of <code>ConversationKit</code>.
-/// note:
-/// This will be only available after successful <code>setup(with:result)</code>.
-@property (nonatomic, readonly, strong) ZDKConfig * _Nullable config;
+@property (nonatomic, readonly, strong) ZDKConfig * _Nonnull config;
 /// Current <code>ConversationKitSettings</code>.
-/// note:
-/// This will be only available after successful <code>setup(with:result)</code>.
-@property (nonatomic, readonly, strong) ZDKConversationKitSettings * _Nullable settings;
+@property (nonatomic, readonly, strong) ZDKConversationKitSettings * _Nonnull settings;
+/// Current <code>FeatureFlagManager</code>.
+@property (nonatomic, readonly, strong) ZDKFeatureFlagManager * _Nonnull featureFlagManager;
 /// Current <code>User</code> if it exists.
 @property (nonatomic, readonly, strong) ZDKUser * _Nullable currentUser;
 /// Remove a type of <code>AnyObject</code> from listening to <code>ConversationKitEvent</code> updates.
@@ -2172,12 +2213,6 @@ SWIFT_PROTOCOL("_TtP25ZendeskSDKConversationKit21ConversationKitShared_")
 /// \param observer Object to remove from observing events.
 ///
 - (void)removeEventObserver:(id _Nonnull)observer;
-/// Setup ConversationKit with the given <code>ConversationKitSettings</code>, and <code>Config</code>
-/// \param settings <code>ConversationKitSettings</code> that includes the necessary <code>integrationId</code>.
-///
-/// \param config <code>Config</code> for the app integration
-///
-- (void)setupWith:(ZDKConversationKitSettings * _Nonnull)settings config:(ZDKConfig * _Nonnull)config;
 /// Call to pause the realtime connection that <code>ConversationKit</code> has with the backend.
 /// note:
 /// After this is called, no updates will be received from the server.
@@ -2212,6 +2247,22 @@ SWIFT_PROTOCOL("_TtP25ZendeskSDKConversationKit21ConversationKitShared_")
 /// \param proactiveMessageIds The ids of the proactive message concerned
 ///
 - (void)clearProactiveMessagesWithProactiveMessageIds:(NSArray<NSString *> * _Nonnull)proactiveMessageIds;
+/// Provide a dictionary of custom fields.
+/// note:
+/// Strings, numbers and booleans are the only supported value types that can be passed.
+/// \param fields The dictionary of custom fields to be provided.
+///
+- (void)setConversationFields:(NSDictionary<NSString *, NSObject *> * _Nonnull)fields;
+/// Provide an array of custom fields.
+/// note:
+/// Strings, numbers and booleans are the only supported value types that can be passed.
+/// \param tags The dictionary of custom tags to be provided.
+///
+- (void)setConversationTags:(NSArray<NSString *> * _Nonnull)tags;
+/// Clears all fields from storage.
+- (void)clearConversationFields;
+/// Clears all tags from storage.
+- (void)clearConversationTags;
 @end
 
 enum ZDKConversationKitEvent : NSInteger;
@@ -2237,15 +2288,6 @@ SWIFT_PROTOCOL_NAMED("ConversationKitObjC")
 /// \param closure Closure to receive events on.
 ///
 - (void)addEventObserver:(id _Nonnull)observer closure:(void (^ _Nullable)(enum ZDKConversationKitEvent, id _Nullable))closure;
-/// Call to initially setup the SDK with the given <code>ConversationKitSettings</code>
-/// note:
-/// If the SDK is already setup this call will result in an <code>Error</code>.
-/// If this call fails, it is necessary to retry until it succeeds to be able to use the SDK.
-/// \param settings <code>ConversationKitSettings</code> that includes the necessary <code>integrationId</code>.
-///
-/// \param completion <code>Config</code> for the app integration if successful, <code>Error</code> if not.
-///
-- (void)setupWith:(ZDKConversationKitSettings * _Nonnull)settings completion:(void (^ _Nullable)(ZDKConfig * _Nullable, NSError * _Nullable))completion;
 /// Call to create an Anonymous <code>ZDKUser</code>. This call will trigger a network.
 /// note:
 /// If the <code>givenName</code> and <code>surname</code> are empty, an anonymous user with a random name will be created.
@@ -2405,7 +2447,7 @@ SWIFT_CLASS_NAMED("DefaultConversationKitBuilder")
 
 
 @interface ZDKDefaultConversationKitBuilder (SWIFT_EXTENSION(ZendeskSDKConversationKit))
-- (id <ZDKConversationKit> _Nonnull)buildWithCallbackQueue:(dispatch_queue_t _Nonnull)callbackQueue SWIFT_WARN_UNUSED_RESULT;
+- (id <ZDKConversationKit> _Nonnull)buildWith:(ZDKConversationKitSettings * _Nonnull)settings config:(ZDKConfig * _Nonnull)config featureFlagManager:(ZDKFeatureFlagManager * _Nonnull)featureFlagManager callbackQueue:(dispatch_queue_t _Nonnull)callbackQueue SWIFT_WARN_UNUSED_RESULT;
 @end
 
 enum ZDKFieldType : NSInteger;
@@ -2439,6 +2481,7 @@ SWIFT_PROTOCOL_NAMED("Field")
 @end
 
 
+/// Form Field used for email input
 SWIFT_CLASS_NAMED("EmailFormField")
 @interface ZDKEmailFormField : NSObject <ZDKField>
 /// The field type.
@@ -2502,6 +2545,7 @@ SWIFT_CLASS_NAMED("FileMessageContent")
 @end
 
 
+/// <code>Form</code> related <code>MessageContent</code>. Used to display an unsubmitted form.
 SWIFT_CLASS_NAMED("FormMessageContent")
 @interface ZDKFormMessageContent : NSObject <ZDKMessageContent>
 /// The id of the <code>Message</code>
@@ -2525,6 +2569,7 @@ SWIFT_CLASS_NAMED("FormMessageContent")
 @end
 
 
+/// <code>FormResponse</code> related <code>MessageContent</code>. Used to display a submitted form.
 SWIFT_CLASS_NAMED("FormResponseMessageContent")
 @interface ZDKFormResponseMessageContent : NSObject <ZDKMessageContent>
 /// The type  of the <code>Message</code>.
@@ -2716,9 +2761,9 @@ typedef SWIFT_ENUM_NAMED(NSInteger, ZDKMessageStatus, "MessageStatus", open) {
   ZDKMessageStatusSent = 1,
 /// An attempt was made to send the <code>Message</code> to the server but it failed.
   ZDKMessageStatusFailed = 2,
-/// An attempt was made to send the <code>Message</code> to the server but it failed becasue the file size exceeds the max file size.
+/// An attempt was made to send the <code>Message</code> to the server but it failed because the file size exceeds the max file size.
   ZDKMessageStatusExceedsMaxFileSize = 3,
-/// An attempt was made to send the <code>Message</code> to the server but it failed becasue it is an unsupported file type.
+/// An attempt was made to send the <code>Message</code> to the server but it failed because it is an unsupported file type.
   ZDKMessageStatusFailedAttachmentNotSupported = 4,
 };
 
@@ -2745,6 +2790,7 @@ typedef SWIFT_ENUM_NAMED(NSInteger, ZDKMessageType, "MessageType", open) {
 };
 
 
+/// <code>Option</code> model used for<code>Form</code> <code>Message</code> types, when the input <code>type</code> is <code>select</code>.
 SWIFT_CLASS_NAMED("Option")
 @interface ZDKOption : NSObject
 - (BOOL)isEqual:(id _Nullable)object SWIFT_WARN_UNUSED_RESULT;
@@ -2870,6 +2916,7 @@ SWIFT_CLASS_NAMED("ReplyAction")
 @end
 
 
+/// Form Field that takes in generic user input
 SWIFT_CLASS_NAMED("SelectFormField")
 @interface ZDKSelectFormField : NSObject <ZDKField>
 /// The field type.
@@ -2924,6 +2971,7 @@ SWIFT_CLASS_NAMED("ShareAction")
 @end
 
 
+/// Form Field that takes in generic user input
 SWIFT_CLASS_NAMED("TextFormField")
 @interface ZDKTextFormField : NSObject <ZDKField>
 /// The field type.
@@ -2953,11 +3001,14 @@ SWIFT_CLASS_NAMED("TextFormField")
 
 
 @interface ZDKTextFormField (SWIFT_EXTENSION(ZendeskSDKConversationKit))
+/// The minimum allowed length for the response for a field of type text.
 @property (nonatomic, readonly) NSInteger minSizeObjc;
+/// The maximum allowed length for the response for a field of type text.
 @property (nonatomic, readonly) NSInteger maxSizeObjc;
 @end
 
 
+/// Text related <code>MessageContent</code>
 SWIFT_CLASS_NAMED("TextMessageContent")
 @interface ZDKTextMessageContent : NSObject <ZDKMessageContent>
 /// The type of the <code>Message</code>.
@@ -2979,7 +3030,6 @@ SWIFT_CLASS_NAMED("TextMessageContent")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
-
 
 
 SWIFT_CLASS_NAMED("UnsupportedMessageContent")
@@ -3068,6 +3118,18 @@ SWIFT_CLASS_NAMED("WebViewAction")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+/// Wrapper object for Obj-C to return the associated types of the <code>newActivity</code> and <code>activityReceived</code> events.
+SWIFT_CLASS("_TtC25ZendeskSDKConversationKit16ZDKActivityEvent")
+@interface ZDKActivityEvent : NSObject
+/// The received/updated <code>Activity</code>.
+@property (nonatomic, readonly, strong) ZDKActivity * _Nonnull activity;
+/// The identifier of the <code>Conversation</code> that the messages belong to.
+@property (nonatomic, readonly, copy) NSString * _Nonnull conversationId;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 /// List of events that covers all events that could come from <code>ConversationKit</code>.
 typedef SWIFT_ENUM(NSInteger, ZDKConversationKitEvent, open) {
 /// A connection status change event can come from Reachability or Realtime connection.
@@ -3080,20 +3142,20 @@ typedef SWIFT_ENUM(NSInteger, ZDKConversationKitEvent, open) {
   ZDKConversationKitEventConversationUpdated = 3,
 /// New <code>Message</code> received for <code>Conversation</code> with identifier.
   ZDKConversationKitEventNewMessage = 4,
+/// New <code>Activity</code> received for <code>Conversation</code> with identifier.
+  ZDKConversationKitEventNewActivity = 5,
 /// Existing <code>Message</code> updated for <code>Conversation</code> with identifier.
-  ZDKConversationKitEventMessageUpdated = 5,
+  ZDKConversationKitEventMessageUpdated = 6,
 /// The push token ‘String’ was stored.
-  ZDKConversationKitEventPushTokenPrepared = 6,
+  ZDKConversationKitEventPushTokenPrepared = 7,
 /// The result of the call to update the push token <code>String</code> with possible <code>Error</code>.
-  ZDKConversationKitEventPushTokenUpdateResult = 7,
+  ZDKConversationKitEventPushTokenUpdateResult = 8,
 /// The result of the login call with possible <code>Error</code>.
-  ZDKConversationKitEventLoginResult = 8,
+  ZDKConversationKitEventLoginResult = 9,
 /// The result of the logout call with possible <code>Error</code>.
-  ZDKConversationKitEventLogoutResult = 9,
+  ZDKConversationKitEventLogoutResult = 10,
 /// The <code>User</code> has been retrieved from storage.
-  ZDKConversationKitEventPersistedUserRetrieved = 10,
-/// Conversation read activity received from server for <code>conversationId</code>.
-  ZDKConversationKitEventConversationReadReceived = 11,
+  ZDKConversationKitEventPersistedUserRetrieved = 11,
 /// Current user has gained access to <code>Conversation</code>.
   ZDKConversationKitEventConversationAdded = 12,
 /// Current user has lost access to <code>Conversation</code> with identifier.

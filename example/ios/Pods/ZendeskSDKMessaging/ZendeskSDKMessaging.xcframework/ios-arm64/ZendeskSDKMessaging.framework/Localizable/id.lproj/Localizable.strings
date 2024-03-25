@@ -1,5 +1,6 @@
 "zma_accessibility_loading_label" = "Memuat";
 "zma_accessibility_message_author_replied" = "%@ dibalas";
+"zma_accessibility_postback_error_message" = "Kesalahan, %@";
 "zma_action_label_cancel" = "Batal";
 "zma_actions_attachments_label" = "Kirim lampiran";
 "zma_alert_message_label_camera" = "Kamera";
@@ -23,7 +24,6 @@
 "zma_conversation_list_item_description_message" = "Mengirim pesan";
 "zma_conversation_list_item_description_no_messages" = "Tidak ada pesan";
 "zma_conversation_list_item_description_prefix_you" = "Anda: %@";
-"zma_conversation_list_item_description_sender_you" = "Anda: ";
 "zma_conversation_list_item_timestamp_just_now" = "Baru saja";
 "zma_conversation_list_item_unread_indicator_maximum" = "99+";
 "zma_conversation_message_label_cant_be_displayed" = "Pesan tidak dapat ditampilkan";
@@ -37,7 +37,9 @@
 "zma_conversation_message_menu_copy_button_label" = "Salin";
 "zma_conversation_message_menu_delete_button_label" = "Hapus";
 "zma_conversation_messages_failed_to_load" = "Pesan gagal dimuat";
+"zma_conversation_new_messages_banner" = "%@ pesan baru";
 "zma_conversation_new_messages_divider" = "Baru";
+"zma_conversation_see_latest" = "Lihat terbaru";
 "zma_exceeds_max_file_size" = "Melampaui ukuran file maksimum (%@ MB)";
 "zma_form_field_counter_label" = "%@ dari %@";
 "zma_form_field_invalid_email_error" = "Masukkan alamat email yang valid";
@@ -55,3 +57,4 @@
 "zma_new_conversation_error_alert_dismiss_button" = "Ok";
 "zma_new_conversation_error_alert_message" = "Coba lagi nanti.";
 "zma_new_conversation_error_alert_title" = "Tidak dapat membuat percakapan";
+"zma_postback_error_banner_message" = "%@ tidak dapat diselesaikan. Coba lagi nanti.";

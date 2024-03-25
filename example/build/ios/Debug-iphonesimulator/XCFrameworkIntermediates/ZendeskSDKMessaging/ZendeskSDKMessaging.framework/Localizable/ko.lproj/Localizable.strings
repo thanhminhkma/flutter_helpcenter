@@ -1,5 +1,6 @@
 "zma_accessibility_loading_label" = "로드 중";
 "zma_accessibility_message_author_replied" = "%@님이 답장함";
+"zma_accessibility_postback_error_message" = "오류, %@";
 "zma_action_label_cancel" = "취소";
 "zma_actions_attachments_label" = "첨부 파일 보내기";
 "zma_alert_message_label_camera" = "카메라";
@@ -23,7 +24,6 @@
 "zma_conversation_list_item_description_message" = "메시지 보냄";
 "zma_conversation_list_item_description_no_messages" = "메시지 없음";
 "zma_conversation_list_item_description_prefix_you" = "나: %@";
-"zma_conversation_list_item_description_sender_you" = "나: ";
 "zma_conversation_list_item_timestamp_just_now" = "방금";
 "zma_conversation_list_item_unread_indicator_maximum" = "99+";
 "zma_conversation_message_label_cant_be_displayed" = "메시지를 표시할 수 없습니다.";
@@ -37,7 +37,9 @@
 "zma_conversation_message_menu_copy_button_label" = "복사";
 "zma_conversation_message_menu_delete_button_label" = "삭제";
 "zma_conversation_messages_failed_to_load" = "메시지를 로드하지 못했습니다.";
+"zma_conversation_new_messages_banner" = "새 메시지 %@개";
 "zma_conversation_new_messages_divider" = "신규";
+"zma_conversation_see_latest" = "최근 메시지 보기";
 "zma_exceeds_max_file_size" = "최대 파일 크기를 초과합니다(%@MB).";
 "zma_form_field_counter_label" = "%@/%@";
 "zma_form_field_invalid_email_error" = "올바른 이메일 주소를 입력하세요.";
@@ -55,3 +57,4 @@
 "zma_new_conversation_error_alert_dismiss_button" = "확인";
 "zma_new_conversation_error_alert_message" = "나중에 다시 시도하세요.";
 "zma_new_conversation_error_alert_title" = "대화를 만들 수 없음";
+"zma_postback_error_banner_message" = "%@을(를) 완료할 수 없습니다. 나중에 다시 시도하세요.";

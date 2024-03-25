@@ -230,6 +230,7 @@ using UInt = size_t;
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import ObjectiveC;
 #endif
 
 #endif
@@ -250,6 +251,16 @@ using UInt = size_t;
 #endif
 
 #if defined(__OBJC__)
+
+SWIFT_CLASS_NAMED("FeatureFlagManager")
+@interface ZDKFeatureFlagManager : NSObject
+- (nonnull instancetype)initWithHipaaAttachmentFlag:(BOOL)hipaaAttachmentFlag;
+- (nonnull instancetype)initWithHipaaAttachmentFlag:(BOOL)hipaaAttachmentFlag isMultiConvoEnabled:(BOOL)isMultiConvoEnabled canUserCreateMoreConversations:(BOOL)canUserCreateMoreConversations OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 #endif
 #if defined(__cplusplus)
 #endif

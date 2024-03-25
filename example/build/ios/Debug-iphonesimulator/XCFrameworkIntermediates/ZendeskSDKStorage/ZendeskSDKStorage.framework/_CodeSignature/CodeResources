@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/ZendeskSDKStorage-Swift.h</key>
 		<data>
-		mBXrqdkbCyKrtaX3pluu7nEZEe8=
+		AI4FSGvgTXCCgX90isHSbZ6+bsA=
 		</data>
 		<key>Headers/ZendeskSDKStorage.h</key>
 		<data>
@@ -14,7 +14,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		BNxiKojYauLUKPNFcf9ocnGqKqY=
+		j3I7yly5Rvat114qwlPAb+ukoYg=
 		</data>
 		<key>Modules/ZendeskSDKStorage.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -22,19 +22,19 @@
 		</data>
 		<key>Modules/ZendeskSDKStorage.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		hogIPpY8jqsRM2z+L6ORxuWi5tk=
+		ASS51rHl7NJFhEASOJ4u2Uy8kdU=
 		</data>
 		<key>Modules/ZendeskSDKStorage.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		87WO+FgVzpKaHboeW7KwBOkbz3U=
+		nMhgTUEU8opxwzjBz2O/gtSKh2k=
 		</data>
 		<key>Modules/ZendeskSDKStorage.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		hogIPpY8jqsRM2z+L6ORxuWi5tk=
+		ASS51rHl7NJFhEASOJ4u2Uy8kdU=
 		</data>
 		<key>Modules/ZendeskSDKStorage.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		oR4C4w6UCvDf5ORoZ68tTTjnJfA=
+		9hg9oiI7WrpxWWagSUJcb5iBKoU=
 		</data>
 		<key>Modules/ZendeskSDKStorage.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -42,19 +42,19 @@
 		</data>
 		<key>Modules/ZendeskSDKStorage.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		YAftCwAZUeRo2fObUU2+sUlks8I=
+		1Y5nIFg/G2o7ViHwtTAzIy5MXzc=
 		</data>
 		<key>Modules/ZendeskSDKStorage.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		ScemxODncMHaSEYvxsgFj5BWGFQ=
+		hZSSp4dfgqW4QKidohPO4zJ69FY=
 		</data>
 		<key>Modules/ZendeskSDKStorage.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		YAftCwAZUeRo2fObUU2+sUlks8I=
+		1Y5nIFg/G2o7ViHwtTAzIy5MXzc=
 		</data>
 		<key>Modules/ZendeskSDKStorage.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		Zu4nZK4qsBhQ4pIOB44yYSjAMJU=
+		2QmAGlISEJ6BiCPMSO8SeAai5ZM=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -67,7 +67,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			rYZr16KBN2VOBCAiw8EfpeZ887tqyEHhjgQZ1Brv0e0=
+			0AFFRFbe2ej8dcOggdpRRY4Z70ldYkG1HbDtfq6DjkU=
 			</data>
 		</dict>
 		<key>Headers/ZendeskSDKStorage.h</key>
@@ -88,28 +88,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			COeE2+0K0leC1WesRN0qDQJQk4lbV4QZJuvVN4HMsTI=
+			/PasTsrB5HDdweSyCdWPrvfEcJUuMKdyDk6HsBZipYE=
 			</data>
 		</dict>
 		<key>Modules/ZendeskSDKStorage.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vqBoQfjmz4RuezLSDePFyaGUN9D91bukhe932zRdGvE=
+			ouPOrfp0W9P/o5shR6ONotaNYmHPFNS99eRlY23JsEY=
 			</data>
 		</dict>
 		<key>Modules/ZendeskSDKStorage.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			COeE2+0K0leC1WesRN0qDQJQk4lbV4QZJuvVN4HMsTI=
+			/PasTsrB5HDdweSyCdWPrvfEcJUuMKdyDk6HsBZipYE=
 			</data>
 		</dict>
 		<key>Modules/ZendeskSDKStorage.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			mUf6wURjD65bFH2a7r600xY1v/Jnnwt3uBLduS61yFg=
+			5lm3updJsppHR5dxZ9ojIqZpC+TnIrZ116c9MqjblZ8=
 			</data>
 		</dict>
 		<key>Modules/ZendeskSDKStorage.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
@@ -123,28 +123,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			FsFhmx/G/WiZf6YRPQ4zfy9zyfBBD38J5QE6DccCKPc=
+			CUi2id3dPU7xak8MajHJCcpta0VhbFYp88lDHnpiYS4=
 			</data>
 		</dict>
 		<key>Modules/ZendeskSDKStorage.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1Fvz/GRhJzEi4XzIi/VA3FtFSP+U043790khnEkOj6g=
+			iIIlauwEADNLH1dT4kPMvXLrdnxvbwkfiKrDAz5iSLs=
 			</data>
 		</dict>
 		<key>Modules/ZendeskSDKStorage.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			FsFhmx/G/WiZf6YRPQ4zfy9zyfBBD38J5QE6DccCKPc=
+			CUi2id3dPU7xak8MajHJCcpta0VhbFYp88lDHnpiYS4=
 			</data>
 		</dict>
 		<key>Modules/ZendeskSDKStorage.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			YpzUEBwat+LYGv0y7ILZx3jiP5I0npO8JMglEFE50rA=
+			qU1g/fBRIjp+FUER5xoORt4xCLU/zC7jtf7Bj81Wkho=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

@@ -19,14 +19,14 @@
 
     ],
     "ZendeskSDKMessaging": [
-      "2.9.0"
+      "~> 2.16.0"
     ],
     "ZendeskSupportSDK": [
 
     ]
   },
   "platforms": {
-    "ios": "9.0"
+    "ios": "13.0"
   },
   "pod_target_xcconfig": {
     "DEFINES_MODULE": "YES",

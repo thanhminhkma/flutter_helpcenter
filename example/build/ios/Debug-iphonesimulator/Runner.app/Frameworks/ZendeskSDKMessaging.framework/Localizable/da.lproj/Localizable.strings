@@ -1,5 +1,6 @@
 "zma_accessibility_loading_label" = "Indlæser";
 "zma_accessibility_message_author_replied" = "%@ besvaret";
+"zma_accessibility_postback_error_message" = "Fejl, %@";
 "zma_action_label_cancel" = "Annuller";
 "zma_actions_attachments_label" = "Send en vedhæftet fil";
 "zma_alert_message_label_camera" = "Kamera";
@@ -23,7 +24,6 @@
 "zma_conversation_list_item_description_message" = "Sendte en meddelelse";
 "zma_conversation_list_item_description_no_messages" = "Ingen meddelelser";
 "zma_conversation_list_item_description_prefix_you" = "Dig: %@";
-"zma_conversation_list_item_description_sender_you" = "Dig: ";
 "zma_conversation_list_item_timestamp_just_now" = "Lige nu";
 "zma_conversation_list_item_unread_indicator_maximum" = "99+";
 "zma_conversation_message_label_cant_be_displayed" = "Meddelelsen kan ikke vises";
@@ -37,7 +37,9 @@
 "zma_conversation_message_menu_copy_button_label" = "Kopiér";
 "zma_conversation_message_menu_delete_button_label" = "Slet";
 "zma_conversation_messages_failed_to_load" = "Meddelelserne kunne ikke indlæses";
+"zma_conversation_new_messages_banner" = "%@ nye meddelelser";
 "zma_conversation_new_messages_divider" = "Ny";
+"zma_conversation_see_latest" = "Se seneste";
 "zma_exceeds_max_file_size" = "Overstiger den maksimale filstørrelse (%@ MB)";
 "zma_form_field_counter_label" = "%@ af %@";
 "zma_form_field_invalid_email_error" = "Indtast en gyldig e‑mailadresse";
@@ -55,3 +57,4 @@
 "zma_new_conversation_error_alert_dismiss_button" = "OK";
 "zma_new_conversation_error_alert_message" = "Prøv igen senere.";
 "zma_new_conversation_error_alert_title" = "Samtalen kunne ikke oprettes";
+"zma_postback_error_banner_message" = "%@ kunne ikke fuldføres. Prøv igen senere.";

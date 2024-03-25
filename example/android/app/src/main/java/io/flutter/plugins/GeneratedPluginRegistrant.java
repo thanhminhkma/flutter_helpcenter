@@ -17,7 +17,7 @@ public final class GeneratedPluginRegistrant {
   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
     try {
       flutterEngine.getPlugins().add(new com.zendesk_helpcenter.FlutterZendeskPlugin());
-    } catch(Exception e) {
+    } catch (Exception e) {
       Log.e(TAG, "Error registering plugin zendesk_helpcenter, com.zendesk_helpcenter.FlutterZendeskPlugin", e);
     }
   }

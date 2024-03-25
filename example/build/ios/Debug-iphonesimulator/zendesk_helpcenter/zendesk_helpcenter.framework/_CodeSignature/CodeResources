@@ -10,7 +10,7 @@
 		</data>
 		<key>Headers/zendesk_helpcenter-Swift.h</key>
 		<data>
-		bfuQOKhycrL5zOyt6YAUcSB0Zt4=
+		J/1Khf4l2ehhqW0dHOdzACIV9oM=
 		</data>
 		<key>Headers/zendesk_helpcenter-umbrella.h</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		pl0MX+czPeCAnjlvJ4YsgpjJzwM=
+		9em8Y87/2ol/c5V+LOWbC0j4O5I=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -26,11 +26,11 @@
 		</data>
 		<key>Modules/zendesk_helpcenter.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		oB+L+sQdJVW4kbT0Y3s/Cn6LKjA=
+		W0sDV+5xadHJVq5hnfQ3LDh5B44=
 		</data>
 		<key>Modules/zendesk_helpcenter.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		QVc+CQGVmiRH+35upFM7BDxGfRw=
+		UxzNmAJ6vxC3l9VWLHjoaPuO398=
 		</data>
 		<key>Modules/zendesk_helpcenter.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -38,11 +38,11 @@
 		</data>
 		<key>Modules/zendesk_helpcenter.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		Od42viPqtHvLBMfikj6N1+7LOG0=
+		K8JNj58KrlrdnfIyeYoYKSBXMuQ=
 		</data>
 		<key>Modules/zendesk_helpcenter.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		erw7F45vfd3id4DHIDHyzCbjpY4=
+		51JbRME536oDWWOr14aSjbC5eM8=
 		</data>
 		<key>Modules/zendesk_helpcenter.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -50,11 +50,11 @@
 		</data>
 		<key>Modules/zendesk_helpcenter.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		dasVQz5FqumVhhy/NirfgVcYpBo=
+		9s3e+F8CCImE6AjPXeDRXuerDnk=
 		</data>
 		<key>Modules/zendesk_helpcenter.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		FSESq/0OV4Xum9Hl5nIUGDWAdh4=
+		kIZQdheumsG5zydMT3gRcXzF41E=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -70,7 +70,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			SNgw7HRCOA89T+igJnu0H4FWaMhHs+O3dHisdelcae8=
+			ME6pL0sWUc7rjb9LxP6IZRyjtw7mj4AuN/5RyA1bEWc=
 			</data>
 		</dict>
 		<key>Headers/zendesk_helpcenter-umbrella.h</key>
@@ -91,14 +91,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			qNfb0iw7hhLGcU+XBBKXa54hiDE9kWimEe2ZzwtJr10=
+			bN8g4/XBv7Lumq3z7ajxC1y8M2Mmn+wAD9to4/0W3aw=
 			</data>
 		</dict>
 		<key>Modules/zendesk_helpcenter.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			wyiFprkI1TNW3Jtu1LeqDCGnZxtL2vpALQjLKdWDoSM=
+			ey6G6bIs61N6b7WjwIyk5M+OoLKxAoNmWgLOcC02D8Q=
 			</data>
 		</dict>
 		<key>Modules/zendesk_helpcenter.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
@@ -112,14 +112,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Pa+ZJUfNYMYXzYR+CzkQZ2qJ/bbcg9FjC/wsEAA1bVw=
+			78MF8NAAwMfgMFtSHxznxDrnSuAaY3GdpK4KNZMfa1w=
 			</data>
 		</dict>
 		<key>Modules/zendesk_helpcenter.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			7R8h05HZ1R86lC6xQuPnqvJMsHtwjZmk3UaPstL7dvg=
+			6DnJuV2Vhuw7L1cNx5956aHx45SGKbqFGZ9pVKt0uQ8=
 			</data>
 		</dict>
 		<key>Modules/zendesk_helpcenter.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
@@ -133,14 +133,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			63n+FU1zeQl5PsYGdjsXdrmZQbJJtjvh9i3AWvDP96c=
+			zIyxaaJSlavuhx2ssbr8x+INMFYVjHvM9AY/3mESc0E=
 			</data>
 		</dict>
 		<key>Modules/zendesk_helpcenter.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			E/smLZhWjbVwXMUYgbaS3KYjhBuI4GT6yP+8f+lOlvQ=
+			WCQsi645oTLaYnjT8GDgUCbaqapEPMzEBztJww0FQu0=
 			</data>
 		</dict>
 	</dict>
